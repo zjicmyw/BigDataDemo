@@ -2,7 +2,7 @@
 
 def f1():
     def f2():
-        print('执行了f2')
+        print('执行了f2了')
     return f2
 
 f3=f1()
