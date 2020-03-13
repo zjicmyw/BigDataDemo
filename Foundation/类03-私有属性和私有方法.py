@@ -1,4 +1,4 @@
-# 加上__
+# 私有：前端加上__
 
 class Person(object):
     age=18

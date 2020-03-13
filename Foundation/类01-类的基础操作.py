@@ -5,16 +5,25 @@ import time
 class Teacher(object):
     # 类属性：直接类里创建的属性，区别于实例属性
     age = 18
+    # 私有的类属性：加了__
+    __type = '黄种人'
 
     # 方法：函数在类里面就叫方法
+    # 对象方法：有self的为对象方法；
     def show(self):
         print('大家好，我是中国老师')
 
-    # __init__ ：创建完成对象后，自动调用的方法
+    # __new__ 创建对象，自动调用的方法
+    def __new__(cls, *args, **kwargs):
+        print(args,kwargs)
+        print('创建完成了新老师')
+        return object.__new__(cls)
+
+    # __init__ ：创建完成对象（new）后进行初始化，自动调用的方法
     def __init__(self, name):
         # 实例属性：在__init__方法里定义的属性
         self.name = name
-        print('创建了新的老师:' + name)
+        print('初始化了新的老师:' + name)
 
     # __str__： 当使用print函数打印对象时候，自动调用的方法
     def __str__(self):
@@ -49,3 +58,5 @@ del t2
 # 延迟程序自动销毁
 time.sleep(3)
 print('程序退出了')
+
+
