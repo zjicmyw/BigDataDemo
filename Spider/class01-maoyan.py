@@ -2,7 +2,6 @@ import requests
 from pyquery import PyQuery as pq
 import csv
 
-url = 'http://www.qiushibaike.com/hot/page/'
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'
@@ -30,6 +29,7 @@ headers = {
 '''
 标准的爬虫类：
 初始化、获取数据、解析数据、保存数据
+可以直接从html上获取数据的
 '''
 
 
