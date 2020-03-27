@@ -51,3 +51,33 @@ print(sel)
 # 删除
 sel2 = sel.drop(['cc'])
 print(sel2)
+
+
+# 多重索引:方法1
+newprint('多重索引')
+sel1 = Series(np.random.randint(0, 100, size=6), index=[
+              list('aabbcc'), ['期中', '期末', '期中', '期末', '期中', '期末']])
+# 多重索引:方法2
+i1 = ['a', 'b', 'c']
+i2 = ['期中', '期末']
+index1 = pd.MultiIndex.from_product([i1, i2])
+sel2 = Series(np.random.randint(0, 100, size=6), index=index1)
+print(sel2)
+'''
+a  期中    66
+   期末     0
+b  期中    81
+   期末    49
+c  期中    59
+   期末    69
+dtype: int32
+'''
+# 多重索引取值
+print(sel2.loc['a'])
+print(sel2.loc['a', '期末'])
+'''
+期中    35
+期末     4
+dtype: int32
+4
+'''

@@ -44,3 +44,30 @@ c     9
 d    16
 dtype: int64
 '''
+
+# 过滤dropna
+sel = pd.Series([4, np.nan, 9, np.nan])
+print(sel)
+print(sel.dropna())  # 等同于sel[sel.notnull()]
+print(sel.isnull())
+print(sel.notnull())
+'''
+0    4.0
+1    NaN
+2    9.0
+3    NaN
+dtype: float64
+0    4.0
+2    9.0
+dtype: float64
+0    False
+1     True
+2    False
+3     True
+dtype: bool
+0     True
+1    False
+2     True
+3    False
+dtype: bool
+'''

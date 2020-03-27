@@ -1,9 +1,10 @@
 import pandas as pd
 from pandas import Series, DataFrame
-import numpy as pn
+import numpy as np
 
 # 创建方法1
-df1 = pd.DataFrame(data=[[2, 3, 4], [6, 7, 8], [9, 0, 1]], index=['a', 'b', 'c'], columns=['A', 'B', 'C'])
+df1 = pd.DataFrame(data=[[2, 3, 4], [6, 7, 8], [9, 0, 1]], index=[
+                   'a', 'b', 'c'], columns=['A', 'B', 'C'])
 print(df1)
 '''
    A  B  C
