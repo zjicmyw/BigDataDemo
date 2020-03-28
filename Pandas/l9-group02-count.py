@@ -26,10 +26,10 @@ cumprod 累积乘积
 cummax 累积最大值
 cummin 累积最小值
 '''
-df1=pd.DataFrame({'Data1':np.random.randint(0,10,5),
-                  'Data2':np.random.randint(10,20,5),
-                  'key1':list('aabba'),
-                  'key2':list('xyyxy')})
+df1 = pd.DataFrame({'Data1': np.random.randint(0, 10, 5),
+                    'Data2': np.random.randint(10, 20, 5),
+                    'key1': list('aabba'),
+                    'key2': list('xyyxy')})
 '''
    Data1  Data2 key1 key2
 0      9     14    a    x
@@ -48,8 +48,8 @@ a        13     38
 b        11     27
 '''
 # 只算data1
-print(df1['Data1'].groupby(df1['key1']).sum())#方法1
-print(df1.groupby('key1')['Data1'].sum())#方法2
+print(df1['Data1'].groupby(df1['key1']).sum())  # 方法1
+print(df1.groupby('key1')['Data1'].sum())  # 方法2
 '''
 key1
 a    16
@@ -57,7 +57,7 @@ b    13
 Name: Data1, dtype: int32
 '''
 # 使用agg()函数 可以同时做多个聚合运算
-print(df1.groupby('key1').agg(['sum','mean','std']))
+print(df1.groupby('key1').agg(['sum', 'mean', 'std']))
 '''
      Data1                     Data2
        sum      mean       std   sum       mean       std
@@ -67,9 +67,12 @@ b       13  6.500000  3.535534    28  14.000000  4.242641
 '''
 # 可自定义函数，传入agg方法中 grouped.agg(func)
 
+
 def peak_range(df):
     return df.max() - df.min()
-print(df1.groupby('key1').agg(['mean', ('range', peak_range)])) # 通过元组提 供新的列名
+
+
+print(df1.groupby('key1').agg(['mean', ('range', peak_range)]))  # 通过元组提 供新的列名
 
 '''
          Data1            Data2
@@ -80,11 +83,10 @@ b     7.000000     4  16.500000     5
 '''
 
 
-
-
 # 拓展apply函数
 # apply函数是pandas里面所有函数中自由度最高的函数
-df1=pd.DataFrame({'sex':list('FFMFMMF'),'smoker':list('YNYYNYY'),'age': [21,30,17,37,40,18,26],'weight':[120,100,132,140,94,89,123]})
+df1 = pd.DataFrame({'sex': list('FFMFMMF'), 'smoker': list('YNYYNYY'), 'age': [
+                   21, 30, 17, 37, 40, 18, 26], 'weight': [120, 100, 132, 140, 94, 89, 123]})
 '''
   sex smoker  age  weight
 0   F      Y   21     120
@@ -95,13 +97,17 @@ df1=pd.DataFrame({'sex':list('FFMFMMF'),'smoker':list('YNYYNYY'),'age': [21,30,1
 5   M      Y   18      89
 6   F      Y   26     123
 '''
+
+
 def bin_age(age):
-    if age >=18:
+    if age >= 18:
         return 1
     else:
         return 0
+
+
 # 抽烟的年龄大于等18的
-res1=df1['age'].apply(bin_age)
+res1 = df1['age'].apply(bin_age)
 '''
 0    1
 1    1
@@ -112,7 +118,7 @@ res1=df1['age'].apply(bin_age)
 6    1
 Name: age, dtype: int64
 '''
-df1['age'] = res1 # 将得到的数据赋值
+df1['age'] = res1  # 将得到的数据赋值
 '''
   sex smoker  age  weight
 0   F      Y    1     120
@@ -123,10 +129,14 @@ df1['age'] = res1 # 将得到的数据赋值
 5   M      Y    1      89
 6   F      Y    1     123
 '''
-# apply可以传参数
-def top(smoker,col,n=2):
+# apply可以传参数  sort_values([by=列名],[ascending=False]）ascending=False降序
+
+
+def top(smoker, col, n=2):
     return smoker.sort_values(by=col)[-n:]
-print(df1.groupby('smoker').apply(top,col='weight'))# 取出抽烟和不抽烟的体重前二
+
+
+print(df1.groupby('smoker').apply(top, col='weight'))  # 取出抽烟和不抽烟的体重前二
 '''
          sex smoker  age  weight
 smoker

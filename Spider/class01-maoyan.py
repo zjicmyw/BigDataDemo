@@ -1,6 +1,7 @@
 import requests
 from pyquery import PyQuery as pq
 import csv
+import os
 
 
 headers = {
@@ -58,25 +59,38 @@ class MySpider(object):
             list_movie.append(list_index)
         return list_movie
 
-    def save_txt(self, data):
+    def save_txt(self, data,save_path):
         for value in data:
             for value_data in value:
                 movie_info = ''.join(value_data)
-                with open('./BigDataDemo/cache/movie.info.txt', 'a', encoding='utf-8') as f:
+                with open(save_path, 'a', encoding='utf-8') as f:
                     f.write(movie_info + '\n')
 
-    def save_csv(self, data):
+    def save_csv(self, data,save_path):
         for value in data:
-            with open('./BigDataDemo/cache/movie.info.csv', 'a', newline='', encoding='utf-8') as f:
+            with open(save_path, 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerow(value)
 
+def dir_exist(dir_exist):
+    if not os.path.exists(dir_exist):
+        os.makedirs(dir_exist)
+def file_exist(file_path):
+    if not os.path.exists(file_path):
+        with open(file_path,'w') as f:
+            pass
+
 
 if __name__ == '__main__':
+
+    cache_path = 'cache/'
+    dir_exist(cache_path)
+    file_path = 'cache/movie_info.csv'
+    file_exist(file_path)
 
     base_url = 'https://maoyan.com/board/4?offset={}'
     my_spider = MySpider(base_url)
     for offset in range(0, 30, 10):
         result_html = my_spider.get_onePage(offset)
         list_movie = my_spider.parse_onePage(result_html)
-        my_spider.save_csv(list_movie)
+        my_spider.save_csv(list_movie,file_path)
