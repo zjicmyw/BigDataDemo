@@ -145,3 +145,10 @@ N      4   M      N    1      94
 Y      2   M      Y    0     132
        3   F      Y    1     140
 '''
+
+'''
+value_counts 之类的方法使用示例：
+
+1. Series 情况下：[Series].value_counts()
+2. DataFrame 情况下：[DataFrame].apply(pd.value_counts)
+'''
