@@ -160,7 +160,7 @@ df_director = pd.DataFrame({'name':ser_director.index,'counts':ser_director.valu
 # 4 分析排名和分数的关系
 # -------------------------------------
 
-#配置中文字体和修改字体大小
+'''#配置中文字体和修改字体大小
 matplotlib.rcParams['font.family'] = 'SimHei'
 matplotlib.rcParams['font.size'] = 20
 
@@ -176,8 +176,19 @@ plt.gca().invert_yaxis()
 plt.subplot(1,2,2)
 plt.hist(data['分数'],bins=15)
 
-print('电影排名和分数的相关性:',data['分数'].corr(data['排名']))
-plt.show()
+# print('电影排名和分数的相关性:',data['分数'].corr(data['排名']))
+# 电影排名和分数的相关性: -0.7344352078758816
+# plt.show()'''
+
+# -------------------------------------
+# 5 分析电影产量年份
+# -------------------------------------
+
+group_by_year_dir=data.groupby('年份')['导演'].count()
+print(group_by_year_dir)  
+plt.figure() # 设置画布
+group_by_year_dir.plot() # 画图
+# plt.show()
 
 print('分析完成')
 

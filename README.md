@@ -1,5 +1,9 @@
-# BigDataDemo
- 有其他语言基础的，Python大数据学习记录
+# 数据分析学习
+ 有其他语言基础的，Python数据分析学习记录。
+ 目前学习了 
+ - 数据获取 pyquery 
+ - 数据清洗 Numpy/Pandas 
+ - 2D图绘制 Matplotlib
  
  ### requirements.txt使用方法：
  - 安装
