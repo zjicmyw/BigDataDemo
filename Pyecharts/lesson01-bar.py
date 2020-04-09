@@ -4,6 +4,9 @@ from pyecharts.charts import Bar
 # 官方文档
 # https://pyecharts.org/#/zh-cn
 # pyecharts是一款将python与echarts结合的强大的数据可视化工具，由于v0.5.x 和 V1 间不兼容，网上大多文章为v0.5.x
+# 
+# 图标示例
+# https://github.com/pyecharts/pyecharts-gallery
 # -------------------------------------
 
 bar = Bar()

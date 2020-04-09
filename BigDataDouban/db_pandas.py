@@ -2,6 +2,8 @@ import pandas as pd
 import sys
 import matplotlib.pyplot as plt
 import matplotlib
+from pyecharts.charts import Bar
+from pyecharts import options as opts
 # 豆瓣top250电影分析：
 
 # 1、加载数据
@@ -121,8 +123,8 @@ df_type_count_colmuns = df_type.apply(lambda x:x.value_counts()) #统计value相
 剧情  164.0  16.0   4.0  NaN  NaN
 动作   17.0  13.0   3.0  NaN  NaN
 '''
-df_type_count = df_type_count_colmuns.apply(lambda x:x.sum(), axis=1).sort_values(ascending=False)
-# print(df_type_count.head())
+ser_type_count = df_type_count_colmuns.apply(lambda x:x.sum(), axis=1).sort_values(ascending=False)
+# print(ser_type_count.head())
 '''
 剧情    184.0
 爱情     55.0
@@ -131,6 +133,16 @@ df_type_count = df_type_count_colmuns.apply(lambda x:x.sum(), axis=1).sort_value
 冒险     44.0
 dtype: float64
 '''
+
+bar = (
+        Bar()
+        .add_xaxis(list(ser_type_count.index))
+        .add_yaxis("豆瓣TOP250电影", list(ser_type_count))
+        .set_global_opts(
+                xaxis_opts=opts.AxisOpts(name_gap=20)
+        )
+        .render('../cache/电影类型分析柱状图.html')
+)
 
 # -------------------------------------
 # 3 分析'导演'
@@ -185,7 +197,7 @@ plt.hist(data['分数'],bins=15)
 # -------------------------------------
 
 group_by_year_dir=data.groupby('年份')['导演'].count()
-print(group_by_year_dir)  
+# print(group_by_year_dir)  
 plt.figure() # 设置画布
 group_by_year_dir.plot() # 画图
 # plt.show()
