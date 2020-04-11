@@ -4,8 +4,10 @@ import time
 import random
 import csv
 from datetime import datetime, timedelta
- 
+
 #  返回不同的headers
+
+
 def get_headers():
     user_agent_list = [
         "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1",
@@ -28,8 +30,8 @@ def get_headers():
     user_agent = random.choice(user_agent_list)
     headers = {'User-Agent': user_agent}
     return headers
- 
- 
+
+
 def get_data(url):
     headers = get_headers()
     try:
@@ -37,11 +39,10 @@ def get_data(url):
             response = s.get(url, headers=headers, timeout=3)
             content = response.text
             return content
- 
     except Exception as e:
         print(e)
- 
- 
+
+
 # 处理数据
 def parse_data(html):
     try:
@@ -49,52 +50,52 @@ def parse_data(html):
         comments = []
         for item in data:
             comment = [item['id'], item['nickName'], item["userLevel"], item['cityName'] if 'cityName' in item else '',
-                    item['content'].replace('\n', ' '), item['score'], item['startTime']]
+                       item['content'].replace('\n', ' '), item['score'], item['startTime']]
             comments.append(comment)
         return comments
     except Exception as e:
         return None
- 
- 
+
+
 # 存储数据
 def save_to_csv():
     start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 获取当前时间，从当前时间向前获取
- 
+
     end_time = '2018-09-30 00:00:00'  # 影片的上映日期
- 
+
     while start_time > end_time:  # 如果时间开始时间大于结束时间
- 
+
         url = 'http://m.maoyan.com/mmdb/comments/movie/342166.json?_v_=yes&offset=0&startTime=' + start_time.replace(
             ' ', '%20')
         html = None
- 
+
         try:
             html = get_data(url)
- 
+
         except Exception as e:
- 
+
             time.sleep(0.5)
             html = get_data(url)
- 
+
         else:
             time.sleep(1)
- 
+
         comments = parse_data(html)
- 
+
         if comments:
             start_time = comments[14][-1]  # 获得末尾评论的时间
             start_time = datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S') + timedelta(
                 seconds=-1)  # 转换为datetime类型，减1秒，避免获取到重复数据
-            start_time = datetime.strftime(start_time, '%Y-%m-%d %H:%M:%S')  # 转换为str
- 
+            start_time = datetime.strftime(
+                start_time, '%Y-%m-%d %H:%M:%S')  # 转换为str
+
             print(comments)
- 
+
             with open("cache/comments.csv", "a", encoding='utf-8', newline='') as csvfile:
                 writer = csv.writer(csvfile)
- 
                 writer.writerows(comments)
- 
- 
+
+
 if __name__ == '__main__':
     save_to_csv()
     print('获取完毕')

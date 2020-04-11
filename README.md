@@ -1,10 +1,23 @@
 # 数据分析学习
- 有其他语言基础的，Python数据分析学习记录。
- 目前学习了 
- - 数据获取 pyquery 
- - 数据清洗 Numpy/Pandas 
- - 2D图绘制 Matplotlib
+---
+
+
+ ## 目录
+- FoundationCourse： Python基础
+
+- Spider： 数据获取 
+    - Pyquery：  html解析
+
+- Numpy/Pandas： 数据清洗 
+
+- Matplotlib： 2D图绘制 
+
+- Demo：实战
+    - Douban：豆瓣TOP250电影分析
+    - Maoyan：猫眼电影分析
  
+ ## 版本 
+    python version = 3.7.6
  ### requirements.txt使用方法：
  - 安装
 ` pip install pipreqs`
