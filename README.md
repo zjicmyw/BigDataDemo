@@ -1,20 +1,20 @@
-# 数据分析学习
+# 数据分析基础
 ---
 
 
  ## 目录
-- FoundationCourse： Python基础
+- foundation_course： Python基础
 
-- Spider： 数据获取 
-    - Pyquery：  html解析
+- spider： 数据获取 
+    - pyquery：  html解析
 
-- Numpy/Pandas： 数据清洗 
+- numpy/pandas： 数据清洗 
 
-- Matplotlib： 2D图绘制 
+- matplotlib： 2D图绘制 
 
-- Demo：实战
-    - Douban：豆瓣TOP250电影分析
-    - Maoyan：猫眼电影分析
+- demo：实战
+    - douban：豆瓣TOP250电影分析
+    - maoyan：猫眼电影分析
  
  ## 版本 
     python version = 3.7.6
