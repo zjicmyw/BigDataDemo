@@ -5,7 +5,7 @@ from pyecharts.faker import Faker
 
 
 # pandas读取数据
-df = pd.read_csv("cache/comments.csv",
+df = pd.read_csv("demo/maoyan/asset/comments.csv",
                  names=["id", "nickName", "userLevel", "cityName", "content", "score", "startTime"])
 
 attr = ["一星", "二星", "三星", "四星", "五星"]
@@ -35,12 +35,9 @@ c = (
         [list(z) for z in zip(attr,[37, 6, 123, 686, 2136])],
         center=["20%", "30%"],
         radius=[25, 75],
-        # series_name="评分",
-        # data_pair=[list(z) for z in zip(attr, value)],
-        # center=[60, 50],
-        # radius=[25, 75], rosetype='raea', is_legend_show=True, is_label_show=True
+        rosetype='raea', 
     )
     .set_global_opts(title_opts=opts.TitleOpts(title="《无双》评星比例"))
     .set_series_opts(label_opts=opts.LabelOpts(formatter="{b}: {c}"))
-    .render("cache/电影无双评星比例.html")
+    .render("demo/maoyan/asset/电影无双评星比例.html")
 )

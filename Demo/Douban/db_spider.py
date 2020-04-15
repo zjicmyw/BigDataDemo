@@ -78,9 +78,9 @@ def trim(str):
 
 if __name__ == '__main__':
 
-    cache_path = 'Demo/Douban/asset/'
+    cache_path = 'demo/douban/asset/'
     dir_exist(cache_path)
-    file_path = 'Demo/Douban/asset/dbtop250.csv'
+    file_path = 'demo/douban/asset/dbtop250.csv'
     file_exist(file_path)
 
     base_url = 'https://movie.douban.com/top250?start={}&filter='

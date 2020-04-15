@@ -91,7 +91,7 @@ def save_to_csv():
 
             print(comments)
 
-            with open("cache/comments.csv", "a", encoding='utf-8', newline='') as csvfile:
+            with open("asset/comments.csv", "a", encoding='utf-8', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerows(comments)
 
