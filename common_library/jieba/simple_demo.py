@@ -8,11 +8,11 @@ cut1 = ','.join(jieba.cut(s))
 print(cut1)
 
 # 全模式
-cut2=','.join(jieba.cut(s,cut_all = True))
+cut2 = ','.join(jieba.cut(s, cut_all=True))
 print(cut2)
 
 # 搜索引擎模式
-cut3=','.join(jieba.cut_for_search(s))
+cut3 = ','.join(jieba.cut_for_search(s))
 print(cut3)
 
 '''
