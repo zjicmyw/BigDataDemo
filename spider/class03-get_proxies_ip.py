@@ -58,10 +58,11 @@ def dir_exist(dir_exist):
 
 
 def file_exist(file_path):
-    with open(file_path, 'w') as f:
-        if not os.path.exists(file_path):
+    if not os.path.exists(file_path):
+        with open(file_path, 'w') as f:
             pass
-        else:
+    else:
+        with open(file_path, 'w') as f:
             f.write('')
 
 

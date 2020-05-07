@@ -27,11 +27,6 @@ headers = {
 
 # ajax动态获取并渲染问题解决方式：1、分析请求 分类获取 2、from selenium import webdriver 模拟浏览器行为
 
-'''
-标准的爬虫类：
-初始化、获取数据、解析数据、保存数据
-可以直接从html上获取数据的
-'''
 
 
 class MySpider(object):

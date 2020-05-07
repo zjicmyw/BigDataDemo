@@ -14,9 +14,13 @@ headers = {
 '''
 
 
-class MyDangDangSpider(object):
-    def __init__(self, base_url):
+class MySpider(object):
+    def __init__(self, base_url,save_path,file_name,file_type):
         self.base_url = base_url
+        self.save_path=save_path
+        self.file_name=file_name
+        self.file_path=save_path+file_name
+        self.file_type=file_type
 
     def get_onePage(self, offset):
         get_url = self.base_url.format(offset)
@@ -28,6 +32,7 @@ class MyDangDangSpider(object):
 
     def parse_onePage(self, html):
         pq_html = pq(html)
+        result_list = []
         ul = pq_html('.bigimg li').items()
         list_name, list_img = [], []
         for li in ul:
@@ -37,46 +42,49 @@ class MyDangDangSpider(object):
             else:
                 list_img.append(li('.pic img').attr('src'))
 
-        list_book = []
         for i in range(0, 10):
             list_index = [list_name[i], list_img[i]]
-            list_book.append(list_index)
-        return list_book
+            result_list.append(list_index)
+        return result_list
 
-    def save_txt(self, data,save_path):
-        for value in data:
-            for value_data in value:
-                movie_info = ''.join(value_data)
-                with open(save_path, 'a', encoding='utf-8') as f:
-                    f.write(movie_info + '\n')
+    def save(self,save_data):
+        self.file_exist()
+        if self.file_type=='txt':
+            self.save_txt(save_data)
+        elif self.file_type=='csv':
+            self.save_csv(save_data)
 
-    def save_csv(self, data,save_path):
+    def save_txt(self, data):
+        with open(self.file_path, 'a', encoding='utf-8') as f:
+            for value in data:
+                for item in value:
+                    str_item=''.join(item)
+                    f.write(str_item + '\n')
+
+    def save_csv(self, data):
         for value in data:
-            with open(save_path, 'a', newline='', encoding='utf-8') as f:
+            with open(self.file_path, 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerow(value)
 
+    def file_exist(self):
+        if not os.path.exists(self.save_path):
+            os.makedirs(self.save_path)
+        if not os.path.exists(self.file_path):
+            with open(self.file_path, 'w') as f:
+                pass
+        else:
+            with open(self.file_path, 'w') as f:
+                f.write('')
 
-def dir_exist(dir_exist):
-    if not os.path.exists(dir_exist):
-        os.makedirs(dir_exist)
-def file_exist(file_path):
-    if not os.path.exists(file_path):
-        with open(file_path,'w') as f:
-            pass
+
+    
 
 
 if __name__ == '__main__':
-
-    cache_path = 'cache/'
-    dir_exist(cache_path)
-    file_path = 'cache/book_info.csv'
-    file_exist(file_path)
-
     base_url = 'http://search.dangdang.com/?key=python&act=input&page_index={}'
-    my_spider = MyDangDangSpider(base_url)
+    my_spider = MySpider(base_url,'cache/', 'book_info.csv','csv')
     for offset in range(1, 2):
         result_html = my_spider.get_onePage(offset)
-        list_book = my_spider.parse_onePage(result_html)
-        print(list_book)
-        my_spider.save_csv(list_book,file_path)
+        result_list = my_spider.parse_onePage(result_html)
+        my_spider.save(result_list)
